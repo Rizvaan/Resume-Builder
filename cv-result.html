@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link rel="stylesheet" href="cv-result.css">
+</head>
+<body>
+
+    <h1>Resume Builder</h1>
+
+    <div id="cvContent"></div>
+
+    <script>
+        // Retrieve data from URL parameters
+        function getParameterByName(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        window.onload = function() {
+            const name = getParameterByName('name');
+            const phone = getParameterByName('phone');
+            const email = getParameterByName('email');
+            const linkedin = getParameterByName('linkedin');
+            const portfolio = getParameterByName('portfolio');
+            const summary = getParameterByName('summary');
+            const skills = getParameterByName('skills');
+            const experience = getParameterByName('experience');
+            const education = getParameterByName('education');
+            const certifications = getParameterByName('certifications');
+            const projects = getParameterByName('projects');
+
+            let cvContent = "";
+
+            // Retrieve the image from localStorage
+            const imageBase64 = localStorage.getItem('cvImage');
+            if (imageBase64) {
+                // Display image at the top of the CV
+                cvContent += `<div class="section">
+                    <img src="${imageBase64}" alt="Profile Image" width="150" height="150">
+                </div>`;
+            }
+
+            // Adding the rest of the CV content
+            cvContent += `
+                <div class="section"><strong>Name &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong> ${name}</div>
+                <div class="section"><strong>Phone &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong> ${phone}</div>
+                <div class="section"><strong>Email &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong> ${email}</div>
+                <div class="section"><strong>LinkedIn  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong> <a href="${linkedin}" target="_blank">${linkedin}</a></div>
+                <div class="section"><strong>Portfolio/GitHub &nbsp&nbsp&nbsp&nbsp&nbsp</strong> <a href="${portfolio}" target="_blank">${portfolio}</a></div>
+                
+                <div class="section"><h2>Summary</h2><p>${summary}</p></div>
+                <div class="section"><h2>Skills</h2><p>${skills}</p></div>
+                <div class="section"><h2>Experience</h2><p>${experience}</p></div>
+                <div class="section"><h2>Education</h2><p>${education}</p></div>
+                <div class="section"><h2>Certifications</h2><p>${certifications}</p></div>
+                <div class="section"><h2>Personal Projects</h2><p>${projects}</p></div>
+            `;
+
+            // Display the CV content
+            document.getElementById('cvContent').innerHTML = cvContent;
+        }
+    </script>
+
+</body>
+</html>
